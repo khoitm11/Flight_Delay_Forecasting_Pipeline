@@ -1,0 +1,22 @@
+#python
+venv/
+.venv/
+_pycache_/
+*.pyc
+
+#data
+data/bts_raw/
+data/bts_processed/
+
+#MLflow
+mlruns/
+**/mlruns/
+
+#IDE & OS
+.ideal/
+.DS_Store
+Thumbs.db
+
+
+
+
