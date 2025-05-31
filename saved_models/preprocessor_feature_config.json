@@ -1,5 +1,5 @@
 {
-    "numeric_features_in_pipe": [
+    "numeric_features_for_pipe": [
         "arr_flights",
         "arr_cancelled",
         "arr_diverted",
@@ -9,12 +9,12 @@
         "security_ct_rate",
         "late_aircraft_ct_rate"
     ],
-    "categorical_features_in_pipe": [
+    "categorical_features_for_pipe": [
         "month",
         "carrier",
         "airport"
     ],
-    "original_X_train_columns_order": [
+    "order_of_columns_in_X_train": [
         "airport",
         "arr_cancelled",
         "arr_diverted",
@@ -27,7 +27,7 @@
         "security_ct_rate",
         "weather_ct_rate"
     ],
-    "processed_feature_names_order": [
+    "order_of_processed_feature_names": [
         "arr_flights",
         "arr_cancelled",
         "arr_diverted",
