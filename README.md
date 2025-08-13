@@ -139,12 +139,13 @@ It was a step-by-step process:
 2. Using Docker 🐳 (The recommended way to run the packaged app!)
 
 a. Build the Docker Image:
-
+```
 docker build -t flight-delay-predictor:v3 .
-
+```
 b. Run the Docker Container to Make a Prediction:
 
 # For PowerShell (using backticks ` for line continuation)
+```
 docker run --rm flight-delay-predictor:v3 python app/app.py `
   --airport "JFK" `
   --arr_cancelled "0" `
@@ -157,9 +158,10 @@ docker run --rm flight-delay-predictor:v3 python app/app.py `
   --nas_ct_rate "0.02" `
   --security_ct_rate "0.0" `
   --weather_ct_rate "0.01"
+```
 
 # For Bash (Linux/macOS, using backslash \ for line continuation)
-    ```
+```
  docker run --rm flight-delay-predictor:v3 python app/app.py
    --airport "JFK" \
    --arr_cancelled "0" \
@@ -172,53 +174,32 @@ docker run --rm flight-delay-predictor:v3 python app/app.py `
    --nas_ct_rate "0.02" \
    --security_ct_rate "0.0" \
    --weather_ct_rate "0.01"
-    ```
+```
 The predicted delay rate will be printed to your console!
 
-📂 Project Structure
-YOUR_PROJECT_REPO_NAME/
-├── app/
-│   └── app.py              # The prediction script
-├── data/
-│   ├── bts_raw/            # Place raw downloaded CSVs here (ignored by Git)
-│   └── bts_processed/      # Output from data prep notebook (ignored by Git)
-├── notebooks/
-│   ├── 01_Data_Prep.ipynb
-│   ├── 02_EDA_and_Feature_Enrichment.ipynb  # Or similar name
-│   └── 03_Feature_Engineering_Modeling_Prep.ipynb
-├── saved_models/           # Stores trained model, preprocessor, feature config
-├── visualizations/         # Stores plots (if saved, also often in MLflow)
-├── .dockerignore           # Tells Docker what to ignore
-├── .gitignore              # Tells Git what to ignore
-├── Dockerfile              # Instructions to build the Docker image
-├── requirements.txt        # Python packages needed
-└── README.md               # This file!
+## 📂 Project Structure
 
-✨ Example Prediction Output
-
-When you run the docker run ... command shown above with the JFK example, you should see something like:
-
-Model, preprocessor, and feature config loaded successfully.
-
---- PREDICTED FLIGHT DELAY RATE ---
-  Input Features:
-     airport : JFK
-     arr_cancelled : 0.0
-     arr_diverted : 0.0
-     arr_flights : 120.0
-     carrier : AA
-     carrier_ct_rate : 0.1
-     late_aircraft_ct_rate : 0.05
-     month : 10.0
-     nas_ct_rate : 0.02
-     security_ct_rate : 0.0
-     weather_ct_rate : 0.01
-  => Predicted Delay Rate: 0.XXXX
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-IGNORE_WHEN_COPYING_END
+-   `YOUR_PROJECT_REPO_NAME/`
+    -   `.git/` *(Git repository data - usually hidden, ignored by user)*
+    -   `.idea/` *(PyCharm project files - should be in .gitignore)*
+    -   `venv/` *(Python virtual environment - should be in .gitignore)*
+    -   `app/` *(Main prediction application code)*
+        -   `app.py` *(The command-line prediction script)*
+    -   `data/` *(Holds datasets)*
+        -   `bts_raw/` *(Place raw downloaded CSVs here - should be in .gitignore)*
+        -   `bts_processed/` *(Output from data prep notebook - should be in .gitignore)*
+    -   `mlruns/` *(MLflow data for local runs - should be in .gitignore)*
+    -   `notebooks/` *(Jupyter notebooks for development)*
+        -   `01_Data_Prep.ipynb`
+        -   `02_EDA_and_Feature_Enrichment.ipynb` *(Or similar name)*
+        -   `03_Feature_Engineering_Modeling_Prep.ipynb`
+    -   `saved_models/` *(Stores trained model, preprocessor, feature config)*
+    -   `visualizations/` *(Stores plots - if also in MLflow, could be in .gitignore)*
+    -   `.dockerignore` *(Files to ignore for Docker build context)*
+    -   `.gitignore` *(Files/directories Git should ignore)*
+    -   `Dockerfile` *(Instructions to build the Docker image)*
+    -   `requirements.txt` *(Python package dependencies)*
+    -   `README.md` *(This file!)*
 
 
 👨‍💻 About Me
@@ -226,5 +207,3 @@ IGNORE_WHEN_COPYING_END
 Name: Khoi Tran
 
 LinkedIn: www.linkedin.com/in/khoitm11
-
-
