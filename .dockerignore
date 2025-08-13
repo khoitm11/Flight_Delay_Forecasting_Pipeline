@@ -1,5 +1,32 @@
-pandas
-numpy
-argparse
-json
-os
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Venv & IDE
+.venv/
+.env
+.vscode/
+.idea/
+
+# Data, logs, reports
+data/
+mlruns/
+reports/
+notebooks/
+tmp/
+*.log
+
+# VCS
+.git/
+.gitignore
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Tests, docs dev
+tests/
+docs/
+scripts/

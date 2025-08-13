@@ -1,28 +1,26 @@
-FROM python:3.12-slim-bullseye
+# syntax=docker/dockerfile:1
+FROM python:3.12-slim
 
-ENV PYTHONUNBUFFERED=1
-ENV PIP_NO_CACHE_DIR=off
-ENV PIP_DISABLE_PIP_VERSION_CHECK=on
-ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/opt/venv/bin:$PATH"
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Create virtual environment
+RUN python -m venv /opt/venv
 
-WORKDIR /app_flight_delay
+WORKDIR /app
 
-COPY requirements.txt ./requirements.txt
+# Install dependencies first to leverage caching
+COPY requirements.txt /app/requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+# Copy only what's needed for inference
+COPY app/ /app/app/
+COPY saved_models/ /app/saved_models/
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Create and switch to non-root user
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
 
-COPY ./app ./app
-COPY ./saved_models ./saved_models
-
-CMD ["python", "app/app.py", \
-     "--airport", "JFK", \
-     "--arr_cancelled", "0", \
-     "--weather_ct_rate", "0.01" \
-    ]
+ENTRYPOINT ["python", "app/app.py"]
